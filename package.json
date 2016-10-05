@@ -1,0 +1,16 @@
+{
+  "name": "picap-tts-js",
+  "version": "1.0.0",
+  "main": "tts.js",
+  "author": "Szymon Kaliski",
+  "license": "CC-BY-SA-3.0",
+  "scripts": {
+    "start": "node tts.js"
+  },
+  "dependencies": {
+    "left-pad": "^1.1.1",
+    "lodash.times": "^4.3.2",
+    "node-picap": "^1.0.0",
+    "onoff": "^1.1.1"
+  }
+}
