@@ -31,15 +31,8 @@ var times        = require('lodash.times');
 var MPR121 = require('node-picap');
 var mpr121;
 
-try {
-  // correct address for the Pi Cap - other boards may vary
-  mpr121 = new MPR121('0x5C'); 
-}
-
-catch (e) {
-  console.log(e);
-  process.exit(1);
-}
+// correct address for the Pi Cap - other boards may vary
+mpr121 = new MPR121('0x5C'); 
 
 function speakFile(text) {
   console.log('speaking: ' + text);
