@@ -25,6 +25,25 @@
 # make sure we're cd-ed into the script directory
 cd "$(dirname "$(readlink -f "${BASH_SOURCE}")")" || exit
 
+warn_about_node_version_and_quit(){
+    echo "Node.js v$REQUIRED_NODE_VERSION not found on your system. Please install it and try again."
+    exit
+}
+
+# if the system node is good enough, we don't need to do any NVM stuff
+if [[ ! $(dpkg --compare-versions $(node --version | tr -d [:alpha:]) "ge" $REQUIRED_NODE_VERSION) ]]; then 
+    # if the system node is not good enough, we should try using NVM to use the required version
+    if [[ -v NVM_DIR && -d "$NVM_DIR" ]]; then # check we actually have NVM
+        [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" # ensure NVM is loaded
+        if [[ ! $( nvm ls | grep $REQUIRED_NODE_VERSION) ]]; then # NVM detected, but doesn't have the required version of node
+            warn_about_node_version_and_quit  
+        fi
+        nvm use $REQUIRED_NODE_VERSION > /dev/null
+    else 
+        warn_about_node_version_and_quit    
+    fi
+fi
+
 # put back any of the quotes that BASH removed
 # so we can show the user what we're running underneath
 execute_and_echo() {
