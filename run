@@ -25,6 +25,8 @@
 # make sure we're cd-ed into the script directory
 cd "$(dirname "$(readlink -f "${BASH_SOURCE}")")" || exit
 
+REQUIRED_NODE_VERSION="6.7.0"
+
 warn_about_node_version_and_quit(){
     echo "Node.js v$REQUIRED_NODE_VERSION not found on your system. Please install it and try again."
     exit
